@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Cql::Model::VERSION
   spec.authors       = ["James Thompson"]
   spec.email         = ["james@plainprograms.com"]
-  spec.description   = %q{An ActiveModel implementation on top of cql-rb}
+  spec.description   = %q{An ActiveModel implementation on top of the cql-rb gem}
   spec.summary       = %q{ActiveModel implementation on cql-rb}
   spec.homepage      = ""
   spec.license       = "MIT"
