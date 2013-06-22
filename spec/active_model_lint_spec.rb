@@ -5,6 +5,6 @@ describe 'ActiveModel Lint' do
   include ActiveModel::Lint::Tests
 
   def setup
-    @model = CQL::Model.new
+    @model = Cql::Model.new
   end
 end
