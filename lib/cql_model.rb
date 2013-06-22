@@ -1,1 +1,1 @@
-require "cql/model"
+require 'cql/model'
