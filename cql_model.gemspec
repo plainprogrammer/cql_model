@@ -20,8 +20,10 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'cql-rb', '~> 1.0.0'
   spec.add_dependency 'activemodel', '~> 4.0.0.rc1'
+  spec.add_dependency 'activesupport', '~> 4.0.0.rc1'
 
   spec.add_development_dependency 'minitest', '~> 4.2.0'
+  spec.add_development_dependency 'simplecov', '~> 0.7.1'
   spec.add_development_dependency 'bundler', '~> 1.3'
   spec.add_development_dependency 'rake'
 end

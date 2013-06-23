@@ -25,7 +25,11 @@ Or install it yourself as:
     Cql::Base.establish_connection(host: '127.0.0.1')
 
     class Person < Cql::Model
-      # Define your class
+      primary_key :id
+
+      column :first_name, String
+      column :last_name, String
+      column :dob, Date
     end
 
 ## Contributing
