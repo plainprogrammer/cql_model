@@ -7,6 +7,7 @@ require 'cql/base'
 require 'cql/model/version'
 require 'cql/model/schema_methods'
 require 'cql/model/finder_methods'
+require 'cql/model/persistence_methods'
 require 'cql/model/query_result'
 
 module Cql
@@ -24,6 +25,9 @@ module Cql
 
     include Cql::Model::SchemaMethods
     include Cql::Model::FinderMethods
+    include Cql::Model::PersistenceMethods
+
+    attr_reader :primary_value
 
     def initialize(attributes = {}, options = {})
       self.class.columns.each do |key, config|
@@ -34,6 +38,8 @@ module Cql
       end
 
       @metadata = options[:metadata]
+      @primary_value = attributes[self.class.primary_key.to_sym]
+      @persisted = false
 
       attributes.each do |key, value|
         attr_name = "@#{key.to_s}".to_sym
@@ -41,6 +47,14 @@ module Cql
       end
 
       self
+    end
+
+    def quoted_primary_value
+      primary_value.is_a?(Fixnum) ? primary_value : "'#{primary_value}'"
+    end
+
+    def persisted?
+      @persisted
     end
 
     def self.execute(query)
