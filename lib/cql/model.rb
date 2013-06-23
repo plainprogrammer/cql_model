@@ -40,6 +40,7 @@ module Cql
       @metadata = options[:metadata]
       @primary_value = attributes[self.class.primary_key.to_sym]
       @persisted = false
+      @deleted = false
 
       attributes.each do |key, value|
         attr_name = "@#{key.to_s}".to_sym

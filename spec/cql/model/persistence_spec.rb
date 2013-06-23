@@ -22,4 +22,25 @@ describe 'Cql::Model Finders' do
       @person.persisted?.must_equal true
     end
   end
+
+  describe '#delete' do
+    before :each do
+      @person.save
+    end
+
+    it { @person.delete.must_be_instance_of Person }
+
+    it do
+      @person.deleted?.must_equal false
+      @person.persisted?.must_equal true
+      @person.delete
+      @person.deleted?.must_equal true
+      @person.persisted?.must_equal false
+    end
+
+    it do
+      @person.delete
+      Person.find(123).must_be_nil
+    end
+  end
 end

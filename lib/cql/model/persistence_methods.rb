@@ -19,6 +19,19 @@ module Cql::Model::PersistenceMethods
     self
   end
 
+  def deleted?
+    @deleted
+  end
+
+  def delete
+    query = "DELETE FROM #{table_name} WHERE #{primary_key} = #{quoted_primary_value}"
+    Cql::Base.connection.execute(query)
+
+    @deleted = true
+    @persisted = false
+    self
+  end
+
   module ClassMethods
 
   end
