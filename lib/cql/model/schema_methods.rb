@@ -1,7 +1,19 @@
 module Cql::Model::SchemaMethods
   extend ::ActiveSupport::Concern
 
+  def table_name
+    self.class.table_name
+  end
+
+  def primary_key
+    self.class.primary_key
+  end
+
   module ClassMethods
+    def table_name
+      @table_name ||= self.model_name.plural
+    end
+
     def columns
       @columns ||= {}
     end

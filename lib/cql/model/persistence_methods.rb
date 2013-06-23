@@ -12,10 +12,7 @@ module Cql::Model::PersistenceMethods
 
     updates = updates.join(', ')
 
-    table = self.class.model_name.plural
-    primary_key = self.class.primary_key.to_s
-
-    query = "UPDATE #{table} SET #{updates} WHERE #{primary_key} = #{quoted_primary_value}"
+    query = "UPDATE #{table_name} SET #{updates} WHERE #{primary_key} = #{quoted_primary_value}"
     Cql::Base.connection.execute(query)
 
     @persisted = true

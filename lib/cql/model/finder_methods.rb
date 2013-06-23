@@ -3,16 +3,14 @@ module Cql::Model::FinderMethods
 
   module ClassMethods
     def all
-      query = "SELECT * FROM #{self.model_name.plural}"
+      query = "SELECT * FROM #{table_name}"
       execute(query)
     end
 
     def find(*args)
       value = args.to_a.flatten.join(',')
-      key = self.primary_key
-      table = self.model_name.plural
 
-      query = "SELECT * FROM #{table} WHERE #{key} IN (#{value})"
+      query = "SELECT * FROM #{table_name} WHERE #{primary_key} IN (#{value})"
 
       if args[0].is_a?(Array) || args.size > 1
         execute(query).to_a
@@ -22,13 +20,11 @@ module Cql::Model::FinderMethods
     end
 
     def find_by(hash)
-      table = self.model_name.plural
-
       clause = "WHERE "
       clause_pieces = hash.collect {|key,value| "#{key.to_s} = '#{value}'"}
       clause << clause_pieces.join(' AND ')
 
-      query = "SELECT * FROM #{table} #{clause} ALLOW FILTERING"
+      query = "SELECT * FROM #{table_name} #{clause} ALLOW FILTERING"
 
       execute(query).to_a
     end

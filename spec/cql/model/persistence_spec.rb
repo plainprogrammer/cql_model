@@ -22,12 +22,4 @@ describe 'Cql::Model Finders' do
       @person.persisted?.must_equal true
     end
   end
-
-  describe '#update_attribute' do
-
-  end
-
-  describe '#update_attributes' do
-
-  end
 end
