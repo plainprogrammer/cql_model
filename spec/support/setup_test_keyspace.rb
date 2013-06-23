@@ -50,4 +50,7 @@ def setup_cql_test
     cql_client.execute(table_definition)
   rescue Exception
   end
+
+  begin; cql_client.execute("CREATE INDEX ON people (first_name);") rescue Exception end
+  begin; cql_client.execute("CREATE INDEX ON people (last_name);") rescue Exception end
 end

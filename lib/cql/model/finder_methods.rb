@@ -20,5 +20,17 @@ module Cql::Model::FinderMethods
         execute(query).first
       end
     end
+
+    def find_by(hash)
+      table = self.model_name.plural
+
+      clause = "WHERE "
+      clause_pieces = hash.collect {|key,value| "#{key.to_s} = '#{value}'"}
+      clause << clause_pieces.join(' AND ')
+
+      query = "SELECT * FROM #{table} #{clause} ALLOW FILTERING"
+
+      execute(query).to_a
+    end
   end
 end

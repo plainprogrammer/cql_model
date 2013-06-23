@@ -28,4 +28,12 @@ describe 'Cql::Model Finders' do
       it { Person.find([1,2]).size.must_equal 2 }
     end
   end
+
+  describe '#find_by' do
+    it { Person.find_by(first_name: 'John').must_be_instance_of Array }
+    it { Person.find_by(first_name: 'John').size.must_equal 1 }
+
+    it { Person.find_by(first_name: 'John', last_name: 'Doe').must_be_instance_of Array }
+    it { Person.find_by(first_name: 'John', last_name: 'Doe').size.must_equal 1 }
+  end
 end
