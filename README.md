@@ -53,7 +53,7 @@ conversion and an optional set of options.
 
     column :first_name, String
     column :birth_date, Date
-    column :birth_date, Data, column_name: :dob
+    column :birth_date, Date, column_name: :dob
 
 The supported options for columns are as follows:
 
