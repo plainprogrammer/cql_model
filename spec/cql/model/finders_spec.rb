@@ -12,8 +12,27 @@ describe Cql::Model do
       it { Person.all.first.must_be_instance_of Person }
     end
 
-    describe '#find' do
+    describe '#find(1)' do
       it { Person.find(1).must_be_instance_of Person }
+    end
+
+    describe "#find('1')" do
+      it { Person.find('1').must_be_instance_of Person }
+    end
+
+    describe '#find(1,2)' do
+      it { Person.find(1,2).must_be_instance_of Array }
+      it { Person.find(1,2).size.must_equal 2 }
+    end
+
+    describe '#find([1])' do
+      it { Person.find([1]).must_be_instance_of Array }
+      it { Person.find([1]).size.must_equal 1 }
+    end
+
+    describe '#find([1,2])' do
+      it { Person.find([1,2]).must_be_instance_of Array }
+      it { Person.find([1,2]).size.must_equal 2 }
     end
   end
 end

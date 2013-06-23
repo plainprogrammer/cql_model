@@ -4,14 +4,21 @@ module Cql::Model::FinderMethods
   module ClassMethods
     def all
       query = "SELECT * FROM #{self.model_name.plural}"
-      cql_results = Cql::Base.connection.execute(query)
-      Cql::Model::QueryResult.new(cql_results, self)
+      execute(query)
     end
 
-    def find(primary_key_value)
-      query = "SELECT * FROM #{self.model_name.plural} WHERE #{self.primary_key} = #{primary_key_value}"
-      cql_results = Cql::Base.connection.execute(query)
-      Cql::Model::QueryResult.new(cql_results, self).first
+    def find(*args)
+      value = args.to_a.flatten.join(',')
+      key = self.primary_key
+      table = self.model_name.plural
+
+      query = "SELECT * FROM #{table} WHERE #{key} IN (#{value})"
+
+      if args[0].is_a?(Array) || args.size > 1
+        execute(query).to_a
+      else
+        execute(query).first
+      end
     end
   end
 end

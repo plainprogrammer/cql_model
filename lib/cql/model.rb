@@ -42,5 +42,10 @@ module Cql
 
       self
     end
+
+    def self.execute(query)
+      cql_results = Cql::Base.connection.execute(query)
+      Cql::Model::QueryResult.new(cql_results, self)
+    end
   end
 end
