@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="CQL Model : An ActiveModel implementation on top of the cql-rb gem." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>CQL Model</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/plainprogrammer/cql_model">View on GitHub</a>
+
+          <h1 id="project_title">CQL Model</h1>
+          <h2 id="project_tagline">An ActiveModel implementation on top of the cql-rb gem.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/plainprogrammer/cql_model/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/plainprogrammer/cql_model/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>cql_model provides an ActiveModel implementation on top of the cql-rb gem. It
+is intended to provide the functionality needed to utilize Cassandra as an
+ActiveModel compatible data store.</p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<pre><code>gem 'cql_model'
+</code></pre>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<p>Or install it yourself as:</p>
+
+<pre><code>$ gem install cql_model
+</code></pre>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<pre><code>require 'cql_model'
+
+Cql::Base.establish_connection(host: '127.0.0.1')
+
+class Person &lt; Cql::Model
+  primary_key :id
+
+  column :first_name, String
+  column :last_name, String
+  column :dob, Date
+end
+</code></pre>
+
+<h3>
+<a name="schema-definition" class="anchor" href="#schema-definition"><span class="octicon octicon-link"></span></a>Schema Definition</h3>
+
+<p>While Cassandra doesn't get super picky about schemas you should understand how
+you're storing your data. To help with this you should define the primary key
+and the columns you care about within your model.</p>
+
+<h4>
+<a name="primary-key" class="anchor" href="#primary-key"><span class="octicon octicon-link"></span></a>Primary Key</h4>
+
+<p>Defining the primary key determines which column the id-oriented finders will
+work with. The default primary key is <code>id</code>.</p>
+
+<pre><code>primary_key :id
+primary_key 'card_number'
+</code></pre>
+
+<h4>
+<a name="columns" class="anchor" href="#columns"><span class="octicon octicon-link"></span></a>Columns</h4>
+
+<p>You define columns by supplying the attribute name, Ruby class for type
+conversion and an optional set of options.</p>
+
+<pre><code>column :first_name, String
+column :birth_date, Date
+column :birth_date, Date, column_name: :dob
+</code></pre>
+
+<p>The supported options for columns are as follows:</p>
+
+<ul>
+<li>
+<code>column_name</code>: actual column name for storing the attribute.</li>
+</ul><h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<ol>
+<li>Fork it</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create new Pull Request</li>
+</ol>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">CQL Model maintained by <a href="https://github.com/plainprogrammer">plainprogrammer</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
