@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = %w{james@plainprograms.com'}
   spec.description   = %q{An ActiveModel implementation on top of the cql-rb gem}
   spec.summary       = %q{ActiveModel implementation on cql-rb}
-  spec.homepage      = 'https://github.com/plainprogrammer/cql_model'
+  spec.homepage      = 'http://plainprogrammer.github.io/cql_model/'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
