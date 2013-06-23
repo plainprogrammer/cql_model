@@ -20,14 +20,14 @@ setup_cql_test
 class Event < Cql::Model
   primary_key :id
 
-  column :location, String
-  column :date, Date
+  column :location
+  column :date
 end
 
 class Person < Cql::Model
   primary_key :id
 
-  column :first_name, String
-  column :last_name, String
-  column :birth_date, Date, column_name: :dob
+  column :first_name
+  column :last_name
+  column :birth_date, column_name: :dob
 end

@@ -5,6 +5,7 @@ require 'active_support/core_ext'
 
 require 'cql/base'
 require 'cql/model/version'
+
 require 'cql/model/schema_methods'
 require 'cql/model/finder_methods'
 require 'cql/model/persistence_methods'

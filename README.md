@@ -27,9 +27,9 @@ Or install it yourself as:
     class Person < Cql::Model
       primary_key :id
 
-      column :first_name, String
-      column :last_name, String
-      column :dob, Date
+      column :first_name
+      column :last_name
+      column :dob
     end
 
 ### Schema Definition
@@ -48,16 +48,18 @@ work with. The default primary key is `id`.
 
 #### Columns
 
-You define columns by supplying the attribute name, Ruby class for type
-conversion and an optional set of options.
+You define columns by supplying the attribute name and an optional set of
+options.
 
-    column :first_name, String
-    column :birth_date, Date
-    column :birth_date, Date, column_name: :dob
+    column :first_name
+    column :birth_date
+    column :birth_date, column_name: :dob
 
 The supported options for columns are as follows:
 
 * `column_name`: actual column name for storing the attribute.
+* `ready_only`: flags the attribute as read-only, blocking creation of a setter
+                method.
 
 ## Contributing
 
