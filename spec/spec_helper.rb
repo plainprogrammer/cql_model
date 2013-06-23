@@ -10,7 +10,6 @@ unless ENV['COVERAGE'] == 'no'
   require 'simplecov'
   SimpleCov.start do
     add_filter "/spec/"
-    add_group 'Source', 'lib'
   end
 end
 
