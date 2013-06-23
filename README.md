@@ -32,6 +32,33 @@ Or install it yourself as:
       column :dob, Date
     end
 
+### Schema Definition
+
+While Cassandra doesn't get super picky about schemas you should understand how
+you're storing your data. To help with this you should define the primary key
+and the columns you care about within your model.
+
+#### Primary Key
+
+Defining the primary key determines which column the id-oriented finders will
+work with. The default primary key is `id`.
+
+    primary_key :id
+    primary_key 'card_number'
+
+#### Columns
+
+You define columns by supplying the attribute name, Ruby class for type
+conversion and an optional set of options.
+
+    column :first_name, String
+    column :birth_date, Date
+    column :birth_date, Data, column_name: :dob
+
+The supported options for columns are as follows:
+
+* `column_name`: actual column name for storing the attribute.
+
 ## Contributing
 
 1. Fork it
