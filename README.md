@@ -61,6 +61,14 @@ The supported options for columns are as follows:
 * `ready_only`: flags the attribute as read-only, blocking creation of a setter
                 method.
 
+#### Consistency
+
+You can set any consistency value for  your models that is supported by cql-rb
+and it will be passed whenever a query is executed. The default consistency
+level is `quorum`.
+
+    consistency :three
+
 ## Contributing
 
 1. Fork it

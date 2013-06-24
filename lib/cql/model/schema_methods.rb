@@ -9,6 +9,10 @@ module Cql::Model::SchemaMethods
     self.class.primary_key
   end
 
+  def consistency
+    self.class.consistency
+  end
+
   module ClassMethods
     def table_name
       @table_name ||= self.model_name.plural
@@ -16,6 +20,10 @@ module Cql::Model::SchemaMethods
 
     def columns
       @columns ||= {}
+    end
+
+    def consistency(consistency_value = nil)
+      @consistency ||= consistency_value.nil? ? :quorum : consistency_value.to_sym
     end
 
     def primary_key(key_name = nil)
