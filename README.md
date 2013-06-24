@@ -1,5 +1,8 @@
 # cql_model
 
+[![Build Status](https://travis-ci.org/plainprogrammer/cql_model.png)](https://travis-ci.org/plainprogrammer/cql_model)
+[![Dependency Status](https://gemnasium.com/plainprogrammer/cql_model.png)](https://gemnasium.com/plainprogrammer/cql_model)
+
 cql_model provides an ActiveModel implementation on top of the cql-rb gem. It
 is intended to provide the functionality needed to utilize Cassandra as an
 ActiveModel compatible data store.
