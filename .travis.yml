@@ -26,3 +26,6 @@ matrix:
     jdk: openjdk7
   - rvm: rbx-19mode
     jdk: oraclejdk7
+  allow_failures:
+  - rvm: jruby-19mode
+    jdk: openjdk6
