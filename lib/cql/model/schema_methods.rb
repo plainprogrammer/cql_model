@@ -9,10 +9,6 @@ module Cql::Model::SchemaMethods
     self.class.primary_key
   end
 
-  def consistency
-    self.class.consistency
-  end
-
   module ClassMethods
     def table_name
       @table_name ||= self.model_name.plural
