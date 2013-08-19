@@ -40,7 +40,7 @@ module Cql
       end
 
       @metadata = options[:metadata]
-      @primary_value = attributes[self.class.primary_key.to_sym]
+      @primary_value = attributes[primary_key.to_sym] || attributes[primary_key.to_s]
       @persisted = false
       @deleted = false
 
