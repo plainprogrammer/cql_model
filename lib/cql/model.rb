@@ -52,6 +52,14 @@ module Cql
       self
     end
 
+    def attributes
+      result = {}
+      self.class.columns.each do |key, config|
+        result[key] = instance_variable_get("@#{config[:attribute_name].to_s}".to_sym)
+      end
+      result
+    end
+
     def quoted_primary_value
       Cql::Statement.quote(primary_value)
     end

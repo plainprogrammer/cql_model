@@ -1,14 +1,6 @@
 module Cql::Model::PersistenceMethods
   extend ::ActiveSupport::Concern
 
-  def attributes
-    result = {}
-    self.class.columns.each do |key, config|
-      result[key] = instance_variable_get("@#{config[:attribute_name].to_s}".to_sym)
-    end
-    result
-  end
-
   def save
     atts = attributes
     fields = atts.keys.join(', ')
@@ -26,7 +18,7 @@ module Cql::Model::PersistenceMethods
   end
 
   def delete
-    query = Cql::Statement.sanitize("DELETE FROM #{table_name} WHERE #{primary_key} = ?", primary_value)
+    query = Cql::Statement.sanitize("DELETE FROM #{table_name} WHERE #{primary_key} = ?", [primary_value])
     Cql::Base.connection.execute(query)
 
     @deleted = true
