@@ -60,5 +60,11 @@ module Cql
         quote(cast_to_cql(bind_vars.shift))
       }
     end
+    
+    def self.clauses(hash)
+      result = []
+      hash.each_pair { |key, value| result << "#{key} = #{quote(cast_to_cql(value))}" }
+      result
+    end
   end
 end

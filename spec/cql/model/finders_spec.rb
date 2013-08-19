@@ -14,7 +14,7 @@ describe 'Cql::Model Finders' do
   describe '#find' do
     describe 'single records' do
       it { Person.find(1).must_be_instance_of Person }
-      it { Person.find('1').must_be_instance_of Person }
+      it { proc { Person.find('1') }.must_raise(Cql::QueryError) }
     end
 
     describe 'multiple/array records' do

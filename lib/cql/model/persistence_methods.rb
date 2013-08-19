@@ -2,11 +2,8 @@ module Cql::Model::PersistenceMethods
   extend ::ActiveSupport::Concern
 
   def save
-    atts = attributes
-    fields = atts.keys.join(', ')
-    values = atts.values
-    placeholders = ('?' * atts.count).chars.join(', ')
-    query = Cql::Statement.sanitize("INSERT INTO #{table_name} (#{fields}) VALUES (#{placeholders})", values)
+    updates = Cql::Statement.clauses(attributes).join(', ')
+    query = Cql::Statement.sanitize("UPDATE #{table_name} SET #{updates} WHERE #{primary_key} = ?", [primary_value])
     Cql::Base.connection.execute(query)
 
     @persisted = true
