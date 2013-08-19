@@ -21,6 +21,8 @@ module Cql
         obj.to_s
       elsif obj.kind_of?(TrueClass) or obj.kind_of?(FalseClass)
         obj.to_s
+      elsif obj.nil?
+        obj.to_s
       else
         raise Error::UnescapableObject, "Unable to escape object of class #{obj.class}"
       end
