@@ -4,6 +4,7 @@ require 'active_support/concern'
 require 'active_support/core_ext'
 
 require 'cql/base'
+require 'cql/statement'
 require 'cql/model/version'
 
 require 'cql/model/schema_methods'

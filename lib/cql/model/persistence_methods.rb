@@ -1,18 +1,20 @@
 module Cql::Model::PersistenceMethods
   extend ::ActiveSupport::Concern
 
-  def save
-    updates = []
-
+  def attributes
+    result = {}
     self.class.columns.each do |key, config|
-      value = instance_variable_get("@#{config[:attribute_name].to_s}".to_sym)
-      value = "'#{value}'" unless value.is_a?(Fixnum)
-      updates << "#{key.to_s} = #{value}" unless value.nil?
+      result[key] = instance_variable_get("@#{config[:attribute_name].to_s}".to_sym)
     end
+    result
+  end
 
-    updates = updates.join(', ')
-
-    query = "UPDATE #{table_name} SET #{updates} WHERE #{primary_key} = #{quoted_primary_value}"
+  def save
+    atts = attributes
+    fields = atts.keys.join(', ')
+    values = atts.values
+    placeholders = ('?' * atts.count).chars.join(', ')
+    query = Cql::Statement.sanitize("INSERT INTO #{table_name} (#{fields}) VALUES (#{placeholders})", values)
     Cql::Base.connection.execute(query)
 
     @persisted = true
@@ -24,7 +26,7 @@ module Cql::Model::PersistenceMethods
   end
 
   def delete
-    query = "DELETE FROM #{table_name} WHERE #{primary_key} = #{quoted_primary_value}"
+    query = Cql::Statement.sanitize("DELETE FROM #{table_name} WHERE #{primary_key} = ?", quoted_primary_value)
     Cql::Base.connection.execute(query)
 
     @deleted = true
