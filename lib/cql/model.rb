@@ -53,7 +53,7 @@ module Cql
     end
 
     def quoted_primary_value
-      primary_value.is_a?(Fixnum) ? primary_value : "'#{primary_value}'"
+      Cql::Statement.quote(primary_value)
     end
 
     def persisted?

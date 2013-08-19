@@ -3,6 +3,7 @@ module Cql::Model::PersistenceMethods
 
   def attributes
     result = {}
+    result[primary_key] = primary_value
     self.class.columns.each do |key, config|
       result[key] = instance_variable_get("@#{config[:attribute_name].to_s}".to_sym)
     end
