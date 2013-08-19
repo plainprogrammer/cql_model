@@ -23,7 +23,7 @@ module Cql::Model::FinderMethods
       clause << clause_pieces.join(' AND ')
 
       query = Cql::Statement.sanitize("SELECT * FROM #{table_name} #{clause} ALLOW FILTERING", hash.values)
-
+puts "executing [#{query}]"
       execute(query).to_a
     end
   end
