@@ -9,7 +9,7 @@ module Cql::Model::FinderMethods
 
     def find(*args)
       values = args.to_a.flatten
-      placeholders = ('?' * values.count).chars.join(', ')
+      placeholders = ('?' * values.count).chars.to_a.join(', ')
       query = Cql::Statement.sanitize("SELECT * FROM #{table_name} WHERE #{primary_key} IN (#{placeholders})", values)
 
       if args[0].is_a?(Array) || args.size > 1
