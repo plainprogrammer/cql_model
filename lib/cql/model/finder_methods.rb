@@ -20,7 +20,19 @@ module Cql::Model::FinderMethods
     end
 
     def find_by(hash)
-      clauses = Cql::Statement.clauses(hash).join(' AND ')
+      where(hash)
+    end
+    
+    def where(hash_or_string, values = [])
+      clauses = 
+        if hash_or_string.kind_of?(Hash)
+          Cql::Statement.clauses(hash_or_string).join(' AND ')
+        elsif hash_or_string.kind_of?(String)
+          Cql::Statement.sanitize(hash_or_string, values)
+        else
+          raise ArgumentError, 'Expected a hash or string'
+        end
+            
       query = "SELECT * FROM #{table_name} WHERE #{clauses} ALLOW FILTERING"
       execute(query).to_a
     end
