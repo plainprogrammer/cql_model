@@ -14,7 +14,7 @@ describe 'Cql::Model Finders' do
   describe '#find' do
     describe 'single records' do
       it { Person.find(1).must_be_instance_of Person }
-      it { Person.find('1').must_be_instance_of Person }
+      it { proc { Person.find('1') }.must_raise(Cql::QueryError) }
     end
 
     describe 'multiple/array records' do
@@ -35,5 +35,34 @@ describe 'Cql::Model Finders' do
 
     it { Person.find_by(first_name: 'John', last_name: 'Doe').must_be_instance_of Array }
     it { Person.find_by(first_name: 'John', last_name: 'Doe').size.must_equal 1 }
+  end
+  
+  describe '#where' do
+    describe 'hash is specified' do
+      it { Person.where(first_name: 'John').must_be_instance_of Array }
+      it { Person.where(first_name: 'John').size.must_equal 1 }
+
+      it { Person.where(first_name: 'John', last_name: 'Doe').must_be_instance_of Array }
+      it { Person.where(first_name: 'John', last_name: 'Doe').size.must_equal 1 }
+    end
+    
+    describe 'string is specified' do
+      it { Person.where("first_name = 'John'").must_be_instance_of Array }
+      it { Person.where("first_name = 'John'").size.must_equal 1 }
+
+      it { Person.where("first_name = 'John' AND last_name = 'Doe'").must_be_instance_of Array }
+      it { Person.where("first_name = 'John' AND last_name = 'Doe'").size.must_equal 1 }
+    end
+    
+    
+    describe 'string and array of values are specified' do
+      it { Person.where("first_name = ?", ['John']).must_be_instance_of Array }
+      it { Person.where("first_name = ?", ['John']).size.must_equal 1 }
+
+      it { Person.where("first_name = ? AND last_name = ?", ['John', 'Doe']).must_be_instance_of Array }
+      it { Person.where("first_name = ? AND last_name = ?", ['John', 'Doe']).size.must_equal 1 }
+    end
+    
+    it { proc { Person.where(123) }.must_raise(ArgumentError) }
   end
 end

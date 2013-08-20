@@ -4,6 +4,7 @@ require 'active_support/concern'
 require 'active_support/core_ext'
 
 require 'cql/base'
+require 'cql/statement'
 require 'cql/model/version'
 
 require 'cql/model/schema_methods'
@@ -39,7 +40,7 @@ module Cql
       end
 
       @metadata = options[:metadata]
-      @primary_value = attributes[self.class.primary_key.to_sym]
+      @primary_value = attributes[primary_key.to_sym] || attributes[primary_key.to_s]
       @persisted = false
       @deleted = false
 
@@ -51,8 +52,16 @@ module Cql
       self
     end
 
+    def attributes
+      result = {}
+      self.class.columns.each do |key, config|
+        result[key] = instance_variable_get("@#{config[:attribute_name].to_s}".to_sym)
+      end
+      result
+    end
+
     def quoted_primary_value
-      primary_value.is_a?(Fixnum) ? primary_value : "'#{primary_value}'"
+      Cql::Statement.quote(primary_value)
     end
 
     def persisted?
